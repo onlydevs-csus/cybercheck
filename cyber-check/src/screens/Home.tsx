@@ -6,7 +6,7 @@ type RootStackParamList = {};
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 
-const HomeScreen = ({ route, navigation }: Props) => {
+const Home = ({ route, navigation }: Props) => {
   const { email } = route.params;
   return (
     <View style={styles.container}>
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default Home;
