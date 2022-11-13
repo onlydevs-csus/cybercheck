@@ -11,6 +11,8 @@ import Signin from "./src/screens/SignIn";
 import RecentReportsScreen from "./src/screens/RecentReports";
 import ManageAccount from "./src/screens/ManageAccount";
 
+import SelectIncident from "./src/screens/SelectIncident";
+import { StatusBar } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +20,8 @@ const App = () => {
   return (
 <<<<<<< HEAD
     <>
+      {/* <StatusBar hidden={true} /> */}
+
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
@@ -38,6 +42,13 @@ const App = () => {
           <Stack.Screen
             name="ManageAccount"
             component={ManageAccount}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="SelectIncident"
+            component={SelectIncident}
             options={{
               headerShown: false,
             }}
