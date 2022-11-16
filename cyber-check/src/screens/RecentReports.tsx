@@ -1,9 +1,9 @@
 import React from "react";
-import { StyleSheet, View, Text, Dimensions, Pressable } from "react-native";
+import { StyleSheet, View, Text, Dimensions, Pressable, TouchableOpacity } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Icon } from "@rneui/base";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-
-import HamburgerMenu from '../components/HamburgerMenu';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type RootStackParamList = {};
 
@@ -14,7 +14,6 @@ const Tab = createBottomTabNavigator();
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-
 const RecentReportsTab = () => {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -23,28 +22,50 @@ const RecentReportsTab = () => {
   );
 };
 
-const RecentReportsScreen = () => {
-  return (
-    <><View style = {{flexDirection: "row"}}> 
-      <HamburgerMenu />
-      </View>
-      
-    <View style = {{flex: 6}}>
-        <Tab.Navigator>
-          <Tab.Screen  
-          name="Recent Reports" 
-          component={RecentReportsTab}  />
-        </Tab.Navigator>
-      </View></>
-    
-  );
-};
+const RecentReportsScreen = ({ navigation }: Props) => (
+  <><SafeAreaView style={[
+    styles.container]}>
+      <View style={styles.navigationBar}>
+        <View style={{flex: 1, justifyContent: "center", alignItems: "flex-start"}}> 
+          <TouchableOpacity onPress={() => navigation.navigate("ManageAccount")}>
+            <Icon name="settings" type="material"></Icon>
+          </TouchableOpacity>
+        </View>
+        <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}> 
+          <Text style={{fontSize: 30}}> Recent Reports </Text>
+        </View> 
+        <View style={{flex: 1, alignItems: "flex-end", justifyContent: "center"}}>
+          <TouchableOpacity //onPress={() => navigation.navigate("RecentReportsTab")}
+          >
+            <Icon name="tab" type="material"> </Icon>
+          </TouchableOpacity>
+        </View>
+      </View> 
+
+    <View style={{ flex: 6 }}>
+      <Tab.Navigator>
+        <Tab.Screen
+          name="Recent Reports"
+          component={RecentReportsTab}
+          options={{
+            headerShown: false
+          }} />
+      </Tab.Navigator>
+    </View>
+    </SafeAreaView>
+</>
+
+);
 
 const styles = StyleSheet.create({
+  navigationBar:{
+    backgroundColor: "grey",
+    flex: .3,
+    padding: 20,
+    flexDirection: "row",
+  },
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    flex: 1
   },
   button: {
     backgroundColor: "#007AFF",

@@ -55,6 +55,7 @@ const SignIn = ({ navigation }: Props) => {
 };
 
 const styles = StyleSheet.create({
+  
   container: {
     flex: 1,
     backgroundColor: "#fff",
@@ -110,28 +111,5 @@ const styles = StyleSheet.create({
   // },
 });
 
-// const generateBoxShadowStyle = (
-//   xOffset: any,
-//   yOffset: any,
-//   shadowColorIos: any,
-//   shadowOpacity: any,
-//   shadowRadius: any,
-//   elevation: any,
-//   shadowColorAndroid: any
-// ) => {
-//   if (Platform.OS === "ios") {
-//     styles.boxShadow = {
-//       shadowColor: shadowColorIos,
-//       shadowOffset: { width: xOffset, height: yOffset },
-//       shadowOpacity,
-//       shadowRadius,
-//     };
-//   } else if (Platform.OS === "android") {
-//     styles.boxShadow = {
-//       elevation,
-//       shadowColor: shadowColorAndroid,
-//     };
-//   }
-// };
 
 export default SignIn;

@@ -5,6 +5,7 @@ import Signin from "./src/screens/SignIn";
 import RecentReportsScreen from "./src/screens/RecentReports";
 import ManageAccount from "./src/screens/ManageAccount";
 
+
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
             component={RecentReportsScreen}
             options={{
               headerShown: false,
+              gestureEnabled: true
             }}
           />
           <Stack.Screen
