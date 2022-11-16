@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Signin from "./src/screens/SignIn";
 import RecentReportsScreen from "./src/screens/RecentReports";
+import ReportTasks from "./src/screens/ReportTasks";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,13 @@ const App = () => {
           <Stack.Screen
             name="RecentReportsTab"
             component={RecentReportsScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="ReportTasks"
+            component={ReportTasks}
             options={{
               headerShown: false,
             }}
