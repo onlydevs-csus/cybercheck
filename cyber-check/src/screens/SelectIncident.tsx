@@ -28,14 +28,15 @@ const SelectIncident = ({ navigation }: Props) => {
 
   console.log(getSelectedIncident(selectedIncident));
 
-  const hideStatusBar = () => {
-    if (Platform.OS === "android") {
-      return { marginTop: StatusBar.currentHeight };
-    }
-  };
-
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      style={[
+        styles.container,
+        {
+          marginTop: Platform.OS == "android" ? StatusBar.currentHeight : 0,
+        },
+      ]}
+    >
       <View style={styles.headerContainer}>
         <Text style={styles.header}>Create New{"\n"}Report</Text>
       </View>
@@ -65,7 +66,6 @@ const SelectIncident = ({ navigation }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 0,
     flex: 1,
     backgroundColor: "#fff",
   },
