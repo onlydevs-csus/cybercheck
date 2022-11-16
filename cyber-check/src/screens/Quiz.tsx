@@ -4,39 +4,71 @@ import {QuestionsData} from '../constants/QuestionsData'
 
 const {height, width} = Dimensions.get("window");
 
+const Option = (props: { keyvalue: any; handle: (arg0: any, arg1: any, arg2: any) => void; option: any; questionId: any; optionIndex: any; text: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; }) => {
+    const [isSelected, setSelected] = useState(false);
+
+    useEffect(() => {
+    })
+
+    return (
+        <TouchableOpacity 
+            onPress={() => {
+            setSelected(!isSelected);
+            props.handle(props.option, props.questionId, props.optionIndex, !isSelected)
+            }}
+            style={isSelected ? styles.optionButtonSelected : styles.optionButton}>
+            <Text style={styles.optionText}>{props.text}</Text>
+        </TouchableOpacity>
+    )
+}
+
+
 const Quiz = () => {
 
     const [index, setIndex] = useState(0);
     const [isComplete, setComplete] = useState(false);
     const [nextQuestionId, setNextQuestionId] = useState(0);
+    const [chosenOptions, setChosenOptions] = useState([]);
 
     useEffect(() => {
     })
 
     const handleNextPress = () => {
-        setIndex(nextQuestionId)
+
+        if (nextQuestionId != -1) {
+            setIndex(nextQuestionId)
+        }
+        else {
+            // setComplete(true)
+
+        }
     }
     const handlePrevPress = () => {
 
     }
+    const handleOptionPress = (option: { [x: string]: string; }, questionId: any, optionIndex: any, selecting: any) => {
+        console.log(selecting)
 
-    const handleOptionPress = (option) => {
         setNextQuestionId(parseInt(option['next_question']))
-        if (nextQuestionId != -1) {
-            // highlight button
-            console.log(nextQuestionId);
+        if (selecting) {
+            let selectedOption = {questionId, optionIndex}
+            setChosenOptions(chosenOptions.concat(selectedOption))
+            if (parseInt(option['next_question']) == -1) {
+                setComplete(true)
+            }
         }
         else {
-            setComplete(true)
+            chosenOptions.pop()
+            setChosenOptions(chosenOptions)
+            setComplete(false)
         }
-        
     }
 
     return (
         <SafeAreaView style={styles.container}>  
             <View style={styles.banner}>
                 <View>
-                    <Text style={{flex: 'none'}}>Back</Text>
+                    <Text>Back</Text>
                 </View>
                 <View>
                     <Text style={styles.bannerText}>Create New Report</Text>
@@ -45,15 +77,22 @@ const Quiz = () => {
             </View> 
             <View style={styles.contentContainer}>
                 <View style={styles.questionContainer}>
-                    <Text style={styles.question}>Q. {QuestionsData[index]['question']}</Text>
+                    <Text style={styles.questionText}>Q. {QuestionsData[index]['question']}</Text>
                 </View>
                 <View style={styles.optionsContainer}>
-                    {
+                {
                     QuestionsData[index]['options'].map( (option) => 
-                    <TouchableOpacity key={option.option_text} style={styles.optionButton} onPress={()=>{handleOptionPress(option)}}>
-                        <Text style={styles.option}>{option.option_text}</Text>
-                    </TouchableOpacity>
-                    )}
+                    <Option 
+                        key={index.toString() + ', ' + QuestionsData[index]['options'].indexOf(option).toString()} 
+                        questionId={index}
+                        optionIndex={QuestionsData[index]['options'].indexOf(option)}
+                        text={option.option_text} 
+                        option={option}
+                        handle={handleOptionPress}
+                    />
+                    )
+                }
+
                 </View>
                 <View style={styles.bottom}>
                     <TouchableOpacity style={styles.navigateButton} onPress={handlePrevPress}>
@@ -63,8 +102,8 @@ const Quiz = () => {
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.navigateButton} onPress={handleNextPress}>
                         <Text style={styles.navigateText}>
-                            {/* {isComplete? 'Submit': 'Next'} */}
-                            Next
+                            {isComplete? 'Submit': 'Next'}
+                            {/* Next */}
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -75,14 +114,15 @@ const Quiz = () => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#fff',
+        backgroundColor: '#D3D3D3',
         flex: 1,
     },
     banner: {
         alignItems: 'center',
         justifyContent: 'center',
         height: height * 0.075,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        backgroundColor: '#fff'
     },
     bannerText: {
         color:'black',
@@ -91,36 +131,43 @@ const styles = StyleSheet.create({
     contentContainer: {
         flex: 1,
         padding: 20,
+        backgroundColor: '#D3D3D3'
     },
     optionsContainer: {
         flex:6,
     },
     questionContainer: {
         flex: 3,
-        borderWidth: 2.5,
+        // borderWidth: 2.5,
         height: height * 0.3,
         marginBottom: 20,
         paddingVertical: 10,
-        paddingHorizontal: 10,
-        borderRadius: 15
+        paddingHorizontal: 15,
+        borderRadius: 15,
+        backgroundColor: '#fff'
     },
-    question: {
+    questionText: {
         fontSize: 20
     },
     optionButton: {
-        borderWidth: 2.5,
         backgroundColor: 'white',
         height: height * 0.08,
         marginVertical: 7,
         paddingVertical: 10,
-        paddingHorizontal: 10,
+        paddingHorizontal: 15,
         justifyContent: 'center',
         borderRadius: 15,
-        "&:OnTouch": {
-            backgroundColor: 'green'
-        }
     },
-    option: {
+    optionButtonSelected: {
+        backgroundColor: '#cadb2a',
+        height: height * 0.08,
+        marginVertical: 7,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        justifyContent: 'center',
+        borderRadius: 15,
+    },
+    optionText: {
         fontSize: 15
     },
     bottom: {
