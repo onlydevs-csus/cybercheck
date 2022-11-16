@@ -71,7 +71,6 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     alignItems: "center",
-    justifyContent: "space-evenly",
   },
   header: {
     color: "black",
@@ -95,16 +94,14 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
   dropdown: {
-    margin: 16,
+    marginTop: 15,
     height: 50,
     backgroundColor: "rgba(217, 217, 217, 0.25)",
     padding: 10,
     borderRadius: 10,
-    textAlign: "center",
   },
   dropdownContainer: {
-    maxWidth: windowWidth * 0.9,
-    minWidth: windowWidth * 0.7,
+    minWidth: windowWidth * 0.8,
     alignSelf: "center",
     paddingTop: 15,
   },
