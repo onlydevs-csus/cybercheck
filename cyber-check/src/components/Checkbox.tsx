@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { CheckBox, Icon } from "@rneui/themed";
 
 interface Props {
-  getCheckboxStatus: (checked: boolean) => boolean;
+  getCheckboxStatus: (checked: boolean, taskId: number) => void;
+  taskId: number;
 }
 
-const Checkbox = ({ getCheckboxStatus }: Props) => {
+const Checkbox = ({ getCheckboxStatus, taskId }: Props) => {
   const [checked, setChecked] = useState(false);
 
-  useEffect(() => {
-    getCheckboxStatus(checked);
-  });
+  const sendData = () => {
+    getCheckboxStatus(checked, taskId);
+  };
 
   return (
     <>
@@ -19,7 +20,10 @@ const Checkbox = ({ getCheckboxStatus }: Props) => {
         uncheckedIcon="check-box-outline-blank"
         checkedIcon="check-box"
         checked={checked}
-        onPress={() => setChecked(!checked)}
+        onPress={() => {
+          setChecked(!checked);
+          sendData();
+        }}
       />
     </>
   );
