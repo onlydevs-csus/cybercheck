@@ -29,18 +29,15 @@ const Quiz = () => {
     const [isComplete, setComplete] = useState(false);
     const [nextQuestionId, setNextQuestionId] = useState(0);
     const [chosenOptions, setChosenOptions] = useState([]);
+    const [isNextButtonVisible, setNextButtonVisibility] = useState(false);
 
     useEffect(() => {
     })
 
     const handleNextPress = () => {
-
         if (nextQuestionId != -1) {
+            setNextButtonVisibility(false)
             setIndex(nextQuestionId)
-        }
-        else {
-            // setComplete(true)
-
         }
     }
     const handlePrevPress = () => {
@@ -50,30 +47,44 @@ const Quiz = () => {
         console.log(selecting)
 
         setNextQuestionId(parseInt(option['next_question']))
+        let selectedOption = {questionId, optionIndex}
         if (selecting) {
-            let selectedOption = {questionId, optionIndex}
             setChosenOptions(chosenOptions.concat(selectedOption))
+            console.log(chosenOptions.concat(selectedOption))
             if (parseInt(option['next_question']) == -1) {
                 setComplete(true)
             }
+            setNextButtonVisibility(true)
         }
         else {
-            chosenOptions.pop()
+            console.log('removing index: ')
+            console.log( chosenOptions.findIndex((removedOption) => {return option === selectedOption}))
+            // console.log(chosenOptions.indexOf(selectedOption))
+
+            chosenOptions.splice(chosenOptions.findIndex((removedOption) => {return option === selectedOption}))
+            // setChosenOptions(chosenOptions.filter(removedOption => removedOption !== selectedOption))
             setChosenOptions(chosenOptions)
             setComplete(false)
+            // console.log(chosenOptions.filter(removedOption => removedOption !== selectedOption))
+            console.log(chosenOptions)
+            setNextButtonVisibility(false)
         }
     }
 
     return (
+        
         <SafeAreaView style={styles.container}>  
             <View style={styles.banner}>
-                <View>
-                    <Text>Back</Text>
+                <View style={{flex: 1, alignItems:'center', flexDirection: 'row'}}>
+                    <View>
+                        <Text style={styles.backButton}>Back</Text>
+                    </View>
+                <View style={{flex: 1}}></View>
                 </View>
                 <View>
                     <Text style={styles.bannerText}>Create New Report</Text>
                 </View>
-                
+                <View style={{flex: 1}}></View>          
             </View> 
             <View style={styles.contentContainer}>
                 <View style={styles.questionContainer}>
@@ -100,12 +111,14 @@ const Quiz = () => {
                             Previous
                         </Text>
                     </TouchableOpacity>
+                    {
+                    isNextButtonVisible &&
                     <TouchableOpacity style={styles.navigateButton} onPress={handleNextPress}>
                         <Text style={styles.navigateText}>
                             {isComplete? 'Submit': 'Next'}
-                            {/* Next */}
                         </Text>
                     </TouchableOpacity>
+                    }
                 </View>
             </View>
         </SafeAreaView>
@@ -119,14 +132,17 @@ const styles = StyleSheet.create({
     },
     banner: {
         alignItems: 'center',
-        justifyContent: 'center',
         height: height * 0.075,
+        width: width,
         flexDirection: 'row',
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
     },
     bannerText: {
         color:'black',
         fontSize: 24,
+    },
+    backButton: {
+        paddingLeft: 15
     },
     contentContainer: {
         flex: 1,
