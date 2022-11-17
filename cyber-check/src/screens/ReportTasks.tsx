@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   SafeAreaView,
@@ -22,21 +22,8 @@ type RootStackParamList = {};
 type Props = NativeStackScreenProps<RootStackParamList>;
 
 const ReportTasks = ({ navigation }: Props) => {
-  // const [tasksStatus, setTasksStatus] = useState<
-  //   { TaskId: number; TaskStatus: string }[]
-  // >([]);
-  // const [checked, setChecked] = useState(false);
   const [completedTasks, setCompletedTasks] = useState(0);
   const [remainingTasks, setRemainingTasks] = useState(TaskList.length);
-  // useEffect(() => {
-  //   // setTasksStatus(TaskList);
-  //   setCompletedTasks(
-  //     TaskList.filter((task) => task.TaskStatus === "Completed").length
-  //   );
-  //   setRemainingTasks(
-  //     TaskList.filter((task) => task.TaskStatus === "Pending").length
-  //   );
-  // });
 
   const getCheckboxStatus = (checked: boolean, taskId: number): void => {
     console.log(`checked: ${!checked}, taskId: ${taskId}`);
