@@ -1,5 +1,5 @@
-import React from "react";
-import { StyleSheet, View, Text, Dimensions, Pressable, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { View, Text, Dimensions, Pressable} from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Icon } from "@rneui/base";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
@@ -10,7 +10,6 @@ type RootStackParamList = {};
 type Props = NativeStackScreenProps<RootStackParamList>;
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import {
-  SafeAreaView,
   FlatList,
   TouchableOpacity,
   StyleSheet,
@@ -102,19 +101,92 @@ const RecentReportsScreen = ({ navigation }: Props) => (
       </View> 
 
     <View style={{ flex: 6 }}>
-      <Tab.Navigator>
-        <Tab.Screen
-          name="Recent Reports"
-          component={RecentReportsTab}
-          options={{
-            headerShown: false
-          }} />
-      </Tab.Navigator>
+    <Tab.Navigator>
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="home" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Recent Reports"
+        component={RecentReportsTab}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="file-document"
+              color={color}
+              size={size}
+            />
+          ),
+
+          title: "Recent Reports",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#fff",
+          },
+          headerTintColor: "#000000",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+    </Tab.Navigator>
     </View>
     </SafeAreaView>
 </>
 
 );
+
+const DATA = [
+  {
+    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+    title: "First Report",
+  },
+  {
+    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
+    title: "Second Report",
+  },
+  {
+    id: "58694a0f-3da1-471f-bd96-145571e29d72",
+    title: "Third Report",
+  },
+  {
+    id: "3434af33-34a3-4332-aaaa-56257142ed32",
+    title: "Fourth Report",
+  },
+  {
+    id: "3434af33-34af-4332-aaaa-56257142ed32",
+    title: "Fifth Report",
+  },
+  {
+    id: "3434af33-3fa3-4332-aaaa-56257142ed32",
+    title: "Sixth Report",
+  },
+  {
+    id: "3434af33-34f3-4332-aaaa-56257142ed32",
+    title: "Seven Report",
+  },
+  {
+    id: "3434af33-34a3-43f2-aaaa-56257142ed32",
+    title: "Eight Report",
+  },
+  {
+    id: "3434af33-3fa3-4332-aafa-56257142ed32",
+    title: "Ninth Report",
+  },
+  {
+    id: "3434af33-34f3-4332-ffaa-56257142ed32",
+    title: "Tenth Report",
+  },
+  {
+    id: "3434af33-34a3-43f2-aaaa-56233142ed32",
+    title: "Eleventh Report",
+  },
+];
 
 const styles = StyleSheet.create({
   navigationBar:{
@@ -145,6 +217,21 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     // fontFamily: "Poppins",
+  },
+  item: {
+    backgroundColor: "#D3D3D3",
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    height: 100,
+    width: 100,
+  },
+  title: {
+    fontSize: 16,
+  },
+  row: {
+    flex: 1,
+    justifyContent: "space-around",
   },
   Nav:{
     
