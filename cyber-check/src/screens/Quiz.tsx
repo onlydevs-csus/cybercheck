@@ -3,8 +3,10 @@ import { Icon } from "@rneui/base";
 import React, { useEffect, useState } from "react";
 import {
   Dimensions,
+  Platform,
   Pressable,
   SafeAreaView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -112,7 +114,14 @@ const Quiz = ({ navigation }: Props) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      style={[
+        styles.container,
+        {
+          marginTop: Platform.OS == "android" ? StatusBar.currentHeight : 0,
+        },
+      ]}
+    >
       <View style={styles.headerContainer}>
         <Pressable onPress={() => navigation.navigate("SelectIncident")}>
           <Icon name="arrow-back-ios" type="material"></Icon>
