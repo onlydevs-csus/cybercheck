@@ -5,12 +5,14 @@ import {
   StyleSheet,
   View,
   Text,
+  SafeAreaView,
   Dimensions,
+  Platform,
 } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Icon } from "@rneui/base";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { SafeAreaView } from "react-native-safe-area-context";
+// import { SafeAreaView } from "react-native-safe-area-context";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 type RootStackParamList = {};
@@ -19,7 +21,7 @@ type Props = NativeStackScreenProps<RootStackParamList>;
 import { StatusBar } from "react-native";
 
 import Home from "./Home";
-import SearchBar from "../components/searchbar";
+import SearchBar from "../components/SearchBar";
 const Tab = createBottomTabNavigator();
 
 const windowWidth = Dimensions.get("window").width;
@@ -49,7 +51,6 @@ const RecentReportsTab = () => {
   const renderItem = ({ item }: { item: any }) => {
     const backgroundColor = item.id === selectedId ? "#DDDDDD" : "#D3D3D3";
     const color = item.id === selectedId ? "white" : "black";
-
     return (
       <Item
         item={item}
@@ -61,14 +62,14 @@ const RecentReportsTab = () => {
   };
 
   return (
-    <View style={{ flex: 1, alignItems: "center" }}>
+    <View style={{ alignItems: "center" }}>
       <SearchBar
         clicked={searchPhrase}
         searchPhrase={setSearchPhrase}
         setSearchPhrase={clicked}
         setClicked={setClicked}
       ></SearchBar>
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <View style={{ justifyContent: "center", alignItems: "center" }}>
         <FlatList
           data={DATA}
           columnWrapperStyle={styles.row}
@@ -84,44 +85,42 @@ const RecentReportsTab = () => {
 
 const RecentReportsScreen = ({ navigation }: Props) => (
   <>
-    <SafeAreaView style={[styles.container]}>
-      <View style={styles.navigationBar}>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "flex-start",
-          }}
-        >
-          <TouchableOpacity
-            onPress={() => navigation.navigate("ManageAccount")}
-          >
-            <Icon name="settings" type="material"></Icon>
-          </TouchableOpacity>
+    <View style={{ flex: 1, backgroundColor: "#fff" }}>
+      <SafeAreaView
+        style={[
+          styles.container,
+          {
+            marginTop: Platform.OS == "android" ? StatusBar.currentHeight : 0,
+          },
+        ]}
+      >
+        <View style={styles.headerContainer}>
+          <View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("ManageAccount")}
+            >
+              <Icon name="settings" type="material"></Icon>
+            </TouchableOpacity>
+          </View>
+          <View>
+            <Text style={styles.header}>Recent Reports</Text>
+          </View>
+          <View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("SelectIncident")}
+            >
+              <Icon name="tab" type="material"></Icon>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View
-          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-        >
-          <Text style={{ fontSize: 30 }}> Recent Reports </Text>
-        </View>
-        <View
-          style={{ flex: 1, alignItems: "flex-end", justifyContent: "center" }}
-        >
-          <TouchableOpacity //onPress={() => navigation.navigate("RecentReportsTab")}
-          >
-            <Icon name="tab" type="material">
-              {" "}
-            </Icon>
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      <View style={{ flex: 6 }}>
+      </SafeAreaView>
+      <View style={{ flex: 20 }}>
         <Tab.Navigator>
           <Tab.Screen
             name="Home"
             component={Home}
             options={{
+              headerShown: false,
               tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons name="home" color={color} size={size} />
               ),
@@ -131,28 +130,12 @@ const RecentReportsScreen = ({ navigation }: Props) => (
             name="Recent Reports"
             component={RecentReportsTab}
             options={{
-              tabBarIcon: ({ color, size }) => (
-                <MaterialCommunityIcons
-                  name="file-document"
-                  color={color}
-                  size={size}
-                />
-              ),
-
-              title: "Recent Reports",
-              headerTitleAlign: "center",
-              headerStyle: {
-                backgroundColor: "#fff",
-              },
-              headerTintColor: "#000000",
-              headerTitleStyle: {
-                fontWeight: "bold",
-              },
+              headerShown: false,
             }}
           />
         </Tab.Navigator>
       </View>
-    </SafeAreaView>
+    </View>
   </>
 );
 
@@ -204,14 +187,25 @@ const DATA = [
 ];
 
 const styles = StyleSheet.create({
-  navigationBar: {
-    backgroundColor: "grey",
-    flex: 0.3,
-    padding: 20,
-    flexDirection: "row",
-  },
   container: {
     flex: 1,
+    // height: 100,
+    backgroundColor: "#fff",
+  },
+  headerContainer: {
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignContent: "center",
+    width: "100%",
+    paddingRight: "5%",
+    paddingLeft: "5%",
+  },
+  header: {
+    color: "black",
+    fontWeight: "bold",
+    textAlign: "center",
+    fontSize: 30,
   },
   button: {
     backgroundColor: "#007AFF",
