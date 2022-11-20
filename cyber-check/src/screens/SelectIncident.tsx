@@ -44,7 +44,7 @@ const SelectIncident = ({ navigation }: Props) => {
           <Icon name="arrow-back-ios" type="material"></Icon>
         </Pressable>
         <Text style={styles.header}>Create New{"\n"}Report</Text>
-        <Pressable onPress={() => navigation.navigate("SelectIncident")}>
+        <Pressable onPress={() => navigation.navigate("Quiz")}>
           <Icon name="arrow-forward-ios" type="material"></Icon>
         </Pressable>
       </View>
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     color: "black",
     fontWeight: "bold",
     textAlign: "center",
-    fontSize: 45,
+    fontSize: 40,
   },
   buttonText: {
     color: "white",
