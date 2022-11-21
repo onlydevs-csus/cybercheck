@@ -8,11 +8,13 @@ import {
   Platform,
   StatusBar,
   TouchableOpacity,
+  Pressable,
 } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Icon } from "@rneui/themed";
 import { TaskList } from "../constants/taskList";
 import Checkbox from "../components/Checkbox";
+import { scale } from "react-native-size-matters";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -21,7 +23,8 @@ type RootStackParamList = {};
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 
-const ReportTasks = ({ navigation }: Props) => {
+const ReportTasks = ({ route, navigation }: Props) => {
+  let { reportName } = route.params;
   const [completedTasks, setCompletedTasks] = useState(0);
   const [remainingTasks, setRemainingTasks] = useState(TaskList.length);
 
@@ -65,7 +68,15 @@ const ReportTasks = ({ navigation }: Props) => {
         ]}
       >
         <View style={styles.headerContainer}>
-          <Text style={styles.header}>Report Name</Text>
+          <Pressable
+            onPress={() => navigation.navigate("Quiz", { reportName })}
+          >
+            <Icon name="arrow-back-ios" type="material"></Icon>
+          </Pressable>
+          <Text style={styles.header}>{reportName}</Text>
+          <Pressable onPress={() => navigation.navigate("")} disabled={true}>
+            <Icon name="arrow-forward-ios" type="material"></Icon>
+          </Pressable>
         </View>
         <View style={styles.tasksContainer}>
           {TaskList.map((task) => {
@@ -81,9 +92,6 @@ const ReportTasks = ({ navigation }: Props) => {
               </View>
             );
           })}
-          <TouchableOpacity onPress={printTaskList}>
-            <Text>Button</Text>
-          </TouchableOpacity>
         </View>
       </SafeAreaView>
       <View style={styles.taskCountContainer}>
@@ -109,12 +117,18 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignContent: "center",
+    width: "100%",
+    paddingRight: "5%",
+    paddingLeft: "5%",
   },
   header: {
     color: "black",
     fontWeight: "bold",
     textAlign: "center",
-    fontSize: 45,
+    fontSize: 40,
   },
   tasksContainer: {
     marginTop: 20,
@@ -156,7 +170,7 @@ const styles = StyleSheet.create({
   },
   taskCountText: {
     textAlign: "center",
-    fontSize: 25,
+    fontSize: scale(25),
     fontWeight: "bold",
     overflowWrap: "break-word",
     wordWrap: "break-word",
