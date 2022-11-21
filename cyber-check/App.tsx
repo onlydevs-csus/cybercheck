@@ -3,12 +3,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Signin from "./src/screens/SignIn";
 import RecentReportsScreen from "./src/screens/RecentReports";
-<<<<<<< HEAD
-import ReportTasks from "./src/screens/ReportTasks";
-=======
 import ManageAccount from "./src/screens/ManageAccount";
-
->>>>>>> c3487fd15757ccad82c16e1d93873e2f65ccf2c6
+import SelectIncident from "./src/screens/SelectIncident";
+import Quiz from "./src/screens/Quiz";
+import ReportTasks from "./src/screens/ReportTasks";
 
 const Stack = createNativeStackNavigator();
 
@@ -29,12 +27,26 @@ const App = () => {
             component={RecentReportsScreen}
             options={{
               headerShown: false,
-              gestureEnabled: true
+              gestureEnabled: true,
             }}
           />
           <Stack.Screen
             name="ManageAccount"
             component={ManageAccount}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="SelectIncident"
+            component={SelectIncident}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Quiz"
+            component={Quiz}
             options={{
               headerShown: false,
             }}

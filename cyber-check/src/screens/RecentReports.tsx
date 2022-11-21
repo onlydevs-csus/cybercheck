@@ -1,55 +1,31 @@
-import React from "react";
-<<<<<<< HEAD
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import {
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+  View,
+  Text,
+  SafeAreaView,
+  Dimensions,
+  Platform,
+} from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
 import Home from "./Home";
-import { Icon } from "@rneui/base";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-
 const Tab = createBottomTabNavigator();
-
-type RootStackParamList = {};
-
-type Props = NativeStackScreenProps<RootStackParamList>;
-
-const RecentReportsTab = ({ navigation }: Props) => {
-=======
-import { StyleSheet, View, Text, Dimensions, Pressable, TouchableOpacity } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Icon } from "@rneui/base";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { SafeAreaView } from "react-native-safe-area-context";
-
-type RootStackParamList = {};
-
-type Props = NativeStackScreenProps<RootStackParamList>;
-
-const Tab = createBottomTabNavigator();
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
 
 const RecentReportsTab = () => {
->>>>>>> c3487fd15757ccad82c16e1d93873e2f65ccf2c6
   return (
-    <>
-      <View style={styles.newReport}>
-        <TouchableOpacity onPress={() => navigation.navigate("ReportTasks")}>
-          <Icon name="create-new-folder" type="material"></Icon>
-        </TouchableOpacity>
-      </View>
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>Recent Reports!</Text>
-      </View>
-    </>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text>Recent Reports!</Text>
+    </View>
   );
 };
 
-<<<<<<< HEAD
 const RecentReportsScreen = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Recent Reports" component={RecentReportsTab} />
     </Tab.Navigator>
   );

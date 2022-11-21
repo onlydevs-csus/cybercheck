@@ -106,9 +106,6 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     float: "left",
   },
-  // boxShadow: {
-  //   paddingTop: 140,
-  // },
 });
 
 
