@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Signin from "./src/screens/SignIn";
 import RecentReportsScreen from "./src/screens/RecentReports";
 import ManageAccount from "./src/screens/ManageAccount";
+import TeamCollab from "./src/screens/teamCollab";
 
 
 const Stack = createNativeStackNavigator();
@@ -34,6 +35,13 @@ const App = () => {
             options={{
               headerShown: false,
             }}
+          />
+          <Stack.Screen
+          name="TeamCollab"
+          component={TeamCollab}
+          options={{
+            headerShown: false,
+          }}
           />
         </Stack.Navigator>
       </NavigationContainer>

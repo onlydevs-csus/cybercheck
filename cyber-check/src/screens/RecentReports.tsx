@@ -27,7 +27,7 @@ const RecentReportsScreen = ({ navigation }: Props) => (
     styles.container]}>
       <View style={styles.navigationBar}>
         <View style={{flex: 1, justifyContent: "center", alignItems: "flex-start"}}> 
-          <TouchableOpacity onPress={() => navigation.navigate("ManageAccount")}>
+          <TouchableOpacity onPress={() => navigation.navigate("TeamCollab")}>
             <Icon name="settings" type="material"></Icon>
           </TouchableOpacity>
         </View>
